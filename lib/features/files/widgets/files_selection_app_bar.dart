@@ -73,13 +73,24 @@ class FilesSelectionAppBar extends ConsumerWidget
       ),
       title: Text(l10n.filesSelectedCount(selectionCount)),
       actions: [
-        AdaptiveTextButton(
+        IconButton(
+          icon: Icon(
+            allSelected
+                ? adaptiveIcon(
+                    material: Icons.deselect,
+                    cupertino: CupertinoIcons.square,
+                  )
+                : adaptiveIcon(
+                    material: Icons.select_all,
+                    cupertino: CupertinoIcons.checkmark_square,
+                  ),
+          ),
+          tooltip: allSelected ? l10n.filesClear : l10n.filesSelectAll,
           onPressed: selectableCount == 0
               ? null
               : () => ref
                     .read(filesNotifierProvider(dirId).notifier)
                     .toggleSelectAllOrClear(),
-          child: Text(allSelected ? l10n.filesClear : l10n.filesSelectAll),
         ),
         IconButton(
           icon: Icon(
