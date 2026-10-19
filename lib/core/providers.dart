@@ -511,6 +511,21 @@ final appThemeModeProvider = NotifierProvider<AppThemeModeNotifier, ThemeMode>(
   AppThemeModeNotifier.new,
 );
 
+class PreviewPreloadNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(preferencesProvider).previewPreloadNeighbors;
+
+  Future<void> set(bool value) async {
+    if (state == value) return;
+    state = value;
+    await ref.read(preferencesProvider).setPreviewPreloadNeighbors(value);
+  }
+}
+
+final previewPreloadProvider = NotifierProvider<PreviewPreloadNotifier, bool>(
+  PreviewPreloadNotifier.new,
+);
+
 /// Persisted app display language. `null` follows the device locale;
 /// otherwise one of the codes in [AppLocaleNotifier.supported].
 class AppLocaleNotifier extends Notifier<Locale?> {

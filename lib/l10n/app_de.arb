@@ -131,6 +131,8 @@
   "accountNotSignedIn": "Nicht angemeldet",
   "accountOfflineCacheStats": "{count, plural, one{1 Datei} other{{count} Dateien}} · {size}",
   "accountOfflineCacheTitle": "Offline-Cache",
+  "accountPreviewPreloadTitle": "Vorschauen vorausladen",
+  "accountPreviewPreloadSubtitle": "Lädt die nächste und vorherige Datei unter 5 MB, damit das Wischen sofort reagiert.",
   "accountOfflineCacheOfLimit": "{used} von {limit}",
   "accountOfflineCacheUnlimited": "{used} · Unbegrenzt",
   "accountCacheLimitTitle": "Cache-Limit",

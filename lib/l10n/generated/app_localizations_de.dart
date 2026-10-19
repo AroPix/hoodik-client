@@ -474,6 +474,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get accountOfflineCacheTitle => 'Offline-Cache';
 
   @override
+  String get accountPreviewPreloadTitle => 'Vorschauen vorausladen';
+
+  @override
+  String get accountPreviewPreloadSubtitle =>
+      'Lädt die nächste und vorherige Datei unter 5 MB, damit das Wischen sofort reagiert.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used von $limit';
   }

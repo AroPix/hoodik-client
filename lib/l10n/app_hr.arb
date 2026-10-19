@@ -131,6 +131,8 @@
   "accountNotSignedIn": "Nisi prijavljen",
   "accountOfflineCacheStats": "{count, plural, one{{count} datoteka} few{{count} datoteke} other{{count} datoteka}} · {size}",
   "accountOfflineCacheTitle": "Offline cache",
+  "accountPreviewPreloadTitle": "Predmemoriši obližnje preglede",
+  "accountPreviewPreloadSubtitle": "Učitava prethodnu i sljedeću datoteku manju od 5 MB kako bi prelistavanje bilo trenutačno.",
   "accountOfflineCacheOfLimit": "{used} od {limit}",
   "accountOfflineCacheUnlimited": "{used} · Neograničeno",
   "accountCacheLimitTitle": "Ograničenje predmemorije",

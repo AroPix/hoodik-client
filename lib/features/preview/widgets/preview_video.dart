@@ -79,6 +79,12 @@ class _PreviewVideoState extends ConsumerState<PreviewVideo> {
 
   Future<void> _loadVideo() async {
     try {
+      final prefetched = ref.read(previewCacheProvider).get(widget.file);
+      if (prefetched != null) {
+        await _initPlayer(await Media.memory(prefetched));
+        return;
+      }
+
       final stream = await openPreviewStream(
         ref,
         file: widget.file,

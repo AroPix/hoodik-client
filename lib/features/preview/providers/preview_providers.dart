@@ -103,3 +103,23 @@ bool isPreviewable(FileItem file, {String? fileName}) {
   return getPreviewType(file.mime, fileName: fileName) !=
       PreviewType.unsupported;
 }
+
+const int kPreviewPreloadMaxBytes = 5 * 1024 * 1024;
+
+List<FileItem> previewPreloadCandidates(
+  List<FileItem> files,
+  int currentIndex, {
+  int maxBytes = kPreviewPreloadMaxBytes,
+}) {
+  final candidates = <FileItem>[];
+  for (final offset in const [-1, 1]) {
+    final index = currentIndex + offset;
+    if (index < 0 || index >= files.length) continue;
+    final file = files[index];
+    final size = file.size;
+    if (size == null || size <= 0 || size > maxBytes) continue;
+    if (file.isUploading) continue;
+    candidates.add(file);
+  }
+  return candidates;
+}

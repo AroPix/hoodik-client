@@ -471,6 +471,13 @@ class AppLocalizationsHr extends AppLocalizations {
   String get accountOfflineCacheTitle => 'Offline cache';
 
   @override
+  String get accountPreviewPreloadTitle => 'Predmemoriši obližnje preglede';
+
+  @override
+  String get accountPreviewPreloadSubtitle =>
+      'Učitava prethodnu i sljedeću datoteku manju od 5 MB kako bi prelistavanje bilo trenutačno.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used od $limit';
   }

@@ -131,6 +131,8 @@
   "accountNotSignedIn": "Non connecté",
   "accountOfflineCacheStats": "{count, plural, one{{count} fichier} other{{count} fichiers}} · {size}",
   "accountOfflineCacheTitle": "Cache hors ligne",
+  "accountPreviewPreloadTitle": "Précharger les aperçus voisins",
+  "accountPreviewPreloadSubtitle": "Charge les fichiers précédent et suivant de moins de 5 Mo pour un balayage instantané.",
   "accountOfflineCacheOfLimit": "{used} sur {limit}",
   "accountOfflineCacheUnlimited": "{used} · Illimité",
   "accountCacheLimitTitle": "Limite du cache",

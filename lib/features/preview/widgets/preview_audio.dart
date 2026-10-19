@@ -67,14 +67,19 @@ class _PreviewAudioState extends ConsumerState<PreviewAudio> {
   Future<void> _load() async {
     try {
       final Media media;
-      final stream = await openPreviewStream(
-        ref,
-        file: widget.file,
-        fileKey: widget.fileKey,
-        fileName: widget.fileName,
-      );
+      final prefetched = ref.read(previewCacheProvider).get(widget.file);
+      final stream = prefetched != null
+          ? null
+          : await openPreviewStream(
+              ref,
+              file: widget.file,
+              fileKey: widget.fileKey,
+              fileName: widget.fileName,
+            );
 
-      if (stream != null) {
+      if (prefetched != null) {
+        media = await Media.memory(prefetched);
+      } else if (stream != null) {
         _stream = stream;
         media = Media(stream.uri.toString());
       } else {

@@ -211,6 +211,8 @@
     }
   },
   "accountOfflineCacheTitle": "Offline Cache",
+  "accountPreviewPreloadTitle": "Preload nearby previews",
+  "accountPreviewPreloadSubtitle": "Loads the next and previous files under 5 MB so swiping is instant.",
   "accountOfflineCacheOfLimit": "{used} of {limit}",
   "@accountOfflineCacheOfLimit": {
     "placeholders": {

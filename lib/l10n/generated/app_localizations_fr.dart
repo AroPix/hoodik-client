@@ -474,6 +474,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accountOfflineCacheTitle => 'Cache hors ligne';
 
   @override
+  String get accountPreviewPreloadTitle => 'Précharger les aperçus voisins';
+
+  @override
+  String get accountPreviewPreloadSubtitle =>
+      'Charge les fichiers précédent et suivant de moins de 5 Mo pour un balayage instantané.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used sur $limit';
   }

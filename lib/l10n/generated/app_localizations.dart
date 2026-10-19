@@ -888,6 +888,18 @@ abstract class AppLocalizations {
   /// **'Offline Cache'**
   String get accountOfflineCacheTitle;
 
+  /// No description provided for @accountPreviewPreloadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preload nearby previews'**
+  String get accountPreviewPreloadTitle;
+
+  /// No description provided for @accountPreviewPreloadSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loads the next and previous files under 5 MB so swiping is instant.'**
+  String get accountPreviewPreloadSubtitle;
+
   /// No description provided for @accountOfflineCacheOfLimit.
   ///
   /// In en, this message translates to:

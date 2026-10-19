@@ -14,6 +14,7 @@ import '../../../core/services/plaintext_temp.dart';
 import '../../../core/widgets/app_notification.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../files/providers/files_notifier.dart';
+import '../providers/preview_loader.dart';
 import '../providers/preview_providers.dart';
 import '../widgets/preview_toolbar.dart';
 import '../widgets/preview_unsupported.dart';
@@ -54,6 +55,8 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
   /// Native save/share sheets eat the event loop; don't pop on ESC under them.
   bool _nativeOverlay = false;
 
+  final Set<String> _preloading = {};
+
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -75,6 +78,8 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
 
     _resetHideTimer();
     HardwareKeyboard.instance.addHandler(_onHardwareKey);
+
+    _preloadNeighbors();
   }
 
   @override
@@ -405,6 +410,7 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
                           _dragOffset = 0;
                         });
                         _resetHideTimer();
+                        _preloadNeighbors();
                       },
                       itemBuilder: (context, index) {
                         return _buildPreviewPage(_files[index]);
@@ -506,6 +512,33 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
         ),
       ],
     );
+  }
+
+  void _preloadNeighbors() {
+    if (_files.isEmpty || !ref.read(previewPreloadProvider)) return;
+
+    final cache = ref.read(previewCacheProvider);
+    for (final file in previewPreloadCandidates(_files, _currentIndex)) {
+      final fileKey = _keys[file.id];
+      if (fileKey == null) continue;
+      if (cache.get(file) != null) continue;
+      if (!_preloading.add(file.id)) continue;
+      unawaited(_preload(file, fileKey));
+    }
+  }
+
+  Future<void> _preload(FileItem file, Uint8List fileKey) async {
+    try {
+      await loadPreviewBytes(
+        ref,
+        file,
+        fileKey,
+        displayName: _displayName(file),
+      );
+    } catch (_) {
+    } finally {
+      _preloading.remove(file.id);
+    }
   }
 
   void _goToPage(int index) {
