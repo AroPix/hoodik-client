@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/api/api_client.dart';
 import '../../../core/widgets/adaptive.dart';
 import '../../../core/widgets/app_icons.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -20,6 +21,7 @@ class FilesSelectionAppBar extends ConsumerWidget
   final VoidCallback onMakeOfflineSelected;
   final VoidCallback onMoveSelected;
   final VoidCallback onDeleteSelected;
+  final VoidCallback onFavoriteSelected;
 
   const FilesSelectionAppBar({
     super.key,
@@ -31,6 +33,7 @@ class FilesSelectionAppBar extends ConsumerWidget
     required this.onMakeOfflineSelected,
     required this.onMoveSelected,
     required this.onDeleteSelected,
+    required this.onFavoriteSelected,
   });
 
   @override
@@ -47,6 +50,15 @@ class FilesSelectionAppBar extends ConsumerWidget
     final allSelected =
         selectableCount > 0 && state.selectedIds.length >= selectableCount;
     final actionsEnabled = !busy && selectionCount > 0;
+
+    final selected = [
+      for (final file in state.files ?? const <FileItem>[])
+        if (state.selectedIds.contains(file.id) && file.id != sharedWithMeDirId)
+          file,
+    ];
+    final canFavorite = actionsEnabled && selected.isNotEmpty;
+    final allFavorited =
+        selected.isNotEmpty && selected.every((file) => file.favorite);
 
     return AppBar(
       leading: IconButton(
@@ -68,6 +80,15 @@ class FilesSelectionAppBar extends ConsumerWidget
                     .read(filesNotifierProvider(dirId).notifier)
                     .toggleSelectAllOrClear(),
           child: Text(allSelected ? l10n.filesClear : l10n.filesSelectAll),
+        ),
+        IconButton(
+          icon: Icon(
+            allFavorited ? AppIcons.favorite : AppIcons.favoriteOutline,
+          ),
+          tooltip: allFavorited
+              ? l10n.filesRemoveFromFavorites
+              : l10n.filesAddToFavorites,
+          onPressed: canFavorite ? onFavoriteSelected : null,
         ),
         IconButton(
           icon: Icon(

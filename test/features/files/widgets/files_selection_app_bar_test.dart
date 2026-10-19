@@ -47,6 +47,7 @@ void main() {
               onMakeOfflineSelected: () {},
               onMoveSelected: () {},
               onDeleteSelected: () {},
+              onFavoriteSelected: () {},
             ),
           ),
         ),

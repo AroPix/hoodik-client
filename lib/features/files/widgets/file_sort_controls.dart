@@ -61,6 +61,16 @@ List<FileItem> sortFiles({
   return [...dirs, ...items];
 }
 
+List<FileItem> pinFavoritesFirst(List<FileItem> files) {
+  if (!files.any((f) => f.favorite)) return files;
+  return [
+    for (final f in files)
+      if (f.favorite) f,
+    for (final f in files)
+      if (!f.favorite) f,
+  ];
+}
+
 /// A popup menu button that lets the user pick a sort field.
 ///
 /// Tapping the currently active field toggles the sort direction.

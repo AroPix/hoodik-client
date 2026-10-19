@@ -1600,6 +1600,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get filesExport => 'Exporter';
 
   @override
+  String get filesAddToFavorites => 'Ajouter aux favoris';
+
+  @override
+  String get filesRemoveFromFavorites => 'Retirer des favoris';
+
+  @override
   String get filesExportBulkBody =>
       'Chaque fichier sera d’abord téléchargé et déchiffré. Cela peut prendre un moment, et vous pourrez choisir où les envoyer une fois tous les fichiers prêts.';
 
@@ -2555,6 +2561,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get previewCannotDecrypt => 'Impossible de déchiffrer le fichier';
+
+  @override
+  String get previewFavoriteFile => 'Ajouter aux favoris';
+
+  @override
+  String get previewUnfavoriteFile => 'Retirer des favoris';
 
   @override
   String get previewDecryptAfterDownloadFailed =>

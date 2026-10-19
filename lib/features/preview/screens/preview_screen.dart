@@ -13,11 +13,13 @@ import '../../../core/providers.dart';
 import '../../../core/services/plaintext_temp.dart';
 import '../../../core/widgets/app_notification.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../files/providers/files_notifier.dart';
 import '../providers/preview_providers.dart';
 import '../widgets/preview_toolbar.dart';
 import '../widgets/preview_unsupported.dart';
 import '../widgets/preview_image.dart';
 import '../widgets/preview_video.dart';
+import '../widgets/preview_audio.dart';
 import '../widgets/preview_pdf.dart';
 import '../widgets/preview_text.dart';
 import '../../../core/theme/hoodik_scheme.dart';
@@ -44,6 +46,10 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
 
   /// Vertical drag offset for swipe-down-to-dismiss.
   double _dragOffset = 0;
+
+  double _videoSwipeDx = 0;
+
+  static const double _videoControlsBarHeight = 56;
 
   /// Native save/share sheets eat the event loop; don't pop on ESC under them.
   bool _nativeOverlay = false;
@@ -264,6 +270,27 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
     _pageController.jumpToPage(_currentIndex);
   }
 
+  Future<void> _toggleFavorite() async {
+    final file = _currentFile;
+    final next = !file.favorite;
+    final dirId = ref.read(previewContextProvider)?.parentDirId;
+
+    final result = await ref
+        .read(filesNotifierProvider(dirId).notifier)
+        .setFavorite([file.id], next);
+
+    if (!mounted) return;
+
+    if (result.type == NotificationType.error && result.message.isNotEmpty) {
+      AppNotification.show(context, message: result.message, type: result.type);
+      return;
+    }
+
+    setState(() {
+      _files[_currentIndex] = file.copyWith(favorite: next);
+    });
+  }
+
   bool _onHardwareKey(KeyEvent event) {
     if (event is! KeyDownEvent) return false;
     if (!mounted || _nativeOverlay) return false;
@@ -313,11 +340,13 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
     final file = _currentFile;
 
     // Only enable swipe-down-to-dismiss for types that don't scroll
-    // vertically (image, video). PDF and text need vertical gestures
+
     // for their own scrolling; future types default to no dismiss.
     final currentType = getPreviewType(file.mime, fileName: _displayName(file));
     final allowDismiss =
-        currentType == PreviewType.image || currentType == PreviewType.video;
+        currentType == PreviewType.image ||
+        currentType == PreviewType.video ||
+        currentType == PreviewType.audio;
 
     // Swipe-down-to-dismiss: fade out and translate as the user drags.
     final screenHeight = MediaQuery.of(context).size.height;
@@ -397,9 +426,11 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
                   visible:
                       (_toolbarVisible || currentType == PreviewType.video) &&
                       _dragOffset == 0,
+                  isFavorite: file.favorite,
                   onClose: _close,
                   onDownload: _download,
                   onDelete: _delete,
+                  onFavorite: _toggleFavorite,
                 ),
               ),
             ],
@@ -418,7 +449,9 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
       case PreviewType.image:
         return PreviewImage(file: file, fileName: fileName, fileKey: fileKey);
       case PreviewType.video:
-        return PreviewVideo(file: file, fileName: fileName, fileKey: fileKey);
+        return _buildVideoPage(file, fileName, fileKey);
+      case PreviewType.audio:
+        return PreviewAudio(file: file, fileName: fileName, fileKey: fileKey);
       case PreviewType.pdf:
         return PreviewPdf(file: file, fileName: fileName, fileKey: fileKey);
       case PreviewType.markdown:
@@ -433,5 +466,55 @@ class _PreviewScreenState extends ConsumerState<PreviewScreen> {
           onDownload: _download,
         );
     }
+  }
+
+  Widget _buildVideoPage(FileItem file, String fileName, Uint8List? fileKey) {
+    final video = PreviewVideo(
+      file: file,
+      fileName: fileName,
+      fileKey: fileKey,
+    );
+
+    if (!Platform.isAndroid && !Platform.isIOS) return video;
+
+    final bottomInset =
+        MediaQuery.of(context).padding.bottom + _videoControlsBarHeight;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        video,
+        Positioned.fill(
+          bottom: bottomInset,
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onHorizontalDragStart: (_) => _videoSwipeDx = 0,
+            onHorizontalDragUpdate: (details) =>
+                _videoSwipeDx += details.delta.dx,
+            onHorizontalDragEnd: (details) {
+              final dx = _videoSwipeDx;
+              _videoSwipeDx = 0;
+              final velocity = details.velocity.pixelsPerSecond.dx;
+              final width = MediaQuery.of(context).size.width;
+              if (dx < -width * 0.15 || velocity < -600) {
+                _goToPage(_currentIndex + 1);
+              } else if (dx > width * 0.15 || velocity > 600) {
+                _goToPage(_currentIndex - 1);
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _goToPage(int index) {
+    if (index < 0 || index >= _files.length) return;
+    if (!_pageController.hasClients) return;
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+    );
   }
 }

@@ -2778,6 +2778,18 @@ abstract class AppLocalizations {
   /// **'Export'**
   String get filesExport;
 
+  /// No description provided for @filesAddToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favorites'**
+  String get filesAddToFavorites;
+
+  /// No description provided for @filesRemoveFromFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favorites'**
+  String get filesRemoveFromFavorites;
+
   /// No description provided for @filesExportBulkBody.
   ///
   /// In en, this message translates to:
@@ -4271,6 +4283,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot decrypt file'**
   String get previewCannotDecrypt;
+
+  /// No description provided for @previewFavoriteFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favorites'**
+  String get previewFavoriteFile;
+
+  /// No description provided for @previewUnfavoriteFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favorites'**
+  String get previewUnfavoriteFile;
 
   /// No description provided for @previewDecryptAfterDownloadFailed.
   ///

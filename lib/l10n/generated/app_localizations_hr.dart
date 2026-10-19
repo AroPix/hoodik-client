@@ -1591,6 +1591,12 @@ class AppLocalizationsHr extends AppLocalizations {
   String get filesExport => 'Izvezi';
 
   @override
+  String get filesAddToFavorites => 'Dodaj u favorite';
+
+  @override
+  String get filesRemoveFromFavorites => 'Ukloni iz favorita';
+
+  @override
   String get filesExportBulkBody =>
       'Svaka datoteka će se prvo preuzeti i dešifrirati. To može potrajati, a mjesto slanja biraš kad sve datoteke budu spremne.';
 
@@ -2549,6 +2555,12 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get previewCannotDecrypt => 'Datoteku nije moguće dekriptirati';
+
+  @override
+  String get previewFavoriteFile => 'Dodaj u favorite';
+
+  @override
+  String get previewUnfavoriteFile => 'Ukloni iz favorita';
 
   @override
   String get previewDecryptAfterDownloadFailed =>
