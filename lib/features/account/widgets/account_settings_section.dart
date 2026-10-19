@@ -7,6 +7,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import 'ai_access_tile.dart';
 import 'appearance_tile.dart';
 import 'diagnostics_tile.dart';
+import 'download_notifications_tile.dart';
 import 'landing_branch_tile.dart';
 import 'language_tile.dart';
 import 'manage_accounts_tile.dart';
@@ -32,6 +33,7 @@ class AccountSettingsSection extends ConsumerWidget {
         const StorageQuotaTile(),
         const OfflineCacheTile(),
         const PreviewPreloadTile(),
+        const DownloadNotificationsTile(),
         const SecuritySettings(),
         const RecoveryKeyTile(),
         const LandingBranchTile(),

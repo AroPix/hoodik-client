@@ -474,6 +474,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Loads the next and previous files under 5 MB so swiping is instant.';
 
   @override
+  String get accountDownloadNotificationsTitle => 'Download notifications';
+
+  @override
+  String get accountDownloadNotificationsSubtitle =>
+      'Notify when a download has finished.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used of $limit';
   }

@@ -478,6 +478,13 @@ class AppLocalizationsHr extends AppLocalizations {
       'Učitava prethodnu i sljedeću datoteku manju od 5 MB kako bi prelistavanje bilo trenutačno.';
 
   @override
+  String get accountDownloadNotificationsTitle => 'Obavijesti o preuzimanju';
+
+  @override
+  String get accountDownloadNotificationsSubtitle =>
+      'Obavijesti kada je preuzimanje završeno.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used od $limit';
   }

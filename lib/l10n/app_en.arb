@@ -213,6 +213,8 @@
   "accountOfflineCacheTitle": "Offline Cache",
   "accountPreviewPreloadTitle": "Preload nearby previews",
   "accountPreviewPreloadSubtitle": "Loads the next and previous files under 5 MB so swiping is instant.",
+  "accountDownloadNotificationsTitle": "Download notifications",
+  "accountDownloadNotificationsSubtitle": "Notify when a download has finished.",
   "accountOfflineCacheOfLimit": "{used} of {limit}",
   "@accountOfflineCacheOfLimit": {
     "placeholders": {

@@ -526,6 +526,23 @@ final previewPreloadProvider = NotifierProvider<PreviewPreloadNotifier, bool>(
   PreviewPreloadNotifier.new,
 );
 
+class DownloadCompleteNotificationsNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(preferencesProvider).downloadCompleteNotifications;
+
+  Future<void> set(bool value) async {
+    if (state == value) return;
+    state = value;
+    await ref.read(preferencesProvider).setDownloadCompleteNotifications(value);
+    await setDownloadCompleteNotifications(value);
+  }
+}
+
+final downloadCompleteNotificationsProvider =
+    NotifierProvider<DownloadCompleteNotificationsNotifier, bool>(
+      DownloadCompleteNotificationsNotifier.new,
+    );
+
 /// Persisted app display language. `null` follows the device locale;
 /// otherwise one of the codes in [AppLocaleNotifier.supported].
 class AppLocaleNotifier extends Notifier<Locale?> {

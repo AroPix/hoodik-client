@@ -114,4 +114,13 @@ class Preferences {
 
   Future<void> setPreviewPreloadNeighbors(bool value) =>
       _prefs.setBool(_kPreviewPreload, value);
+
+  static const _kDownloadCompleteNotifications =
+      'transfers.downloadCompleteNotifications';
+
+  bool get downloadCompleteNotifications =>
+      _prefs.getBool(_kDownloadCompleteNotifications) ?? true;
+
+  Future<void> setDownloadCompleteNotifications(bool value) =>
+      _prefs.setBool(_kDownloadCompleteNotifications, value);
 }

@@ -133,6 +133,8 @@
   "accountOfflineCacheTitle": "Offline-Cache",
   "accountPreviewPreloadTitle": "Vorschauen vorausladen",
   "accountPreviewPreloadSubtitle": "Lädt die nächste und vorherige Datei unter 5 MB, damit das Wischen sofort reagiert.",
+  "accountDownloadNotificationsTitle": "Download-Benachrichtigungen",
+  "accountDownloadNotificationsSubtitle": "Benachrichtigen, wenn ein Download abgeschlossen ist.",
   "accountOfflineCacheOfLimit": "{used} von {limit}",
   "accountOfflineCacheUnlimited": "{used} · Unbegrenzt",
   "accountCacheLimitTitle": "Cache-Limit",

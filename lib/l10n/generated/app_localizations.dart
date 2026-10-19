@@ -900,6 +900,18 @@ abstract class AppLocalizations {
   /// **'Loads the next and previous files under 5 MB so swiping is instant.'**
   String get accountPreviewPreloadSubtitle;
 
+  /// No description provided for @accountDownloadNotificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Download notifications'**
+  String get accountDownloadNotificationsTitle;
+
+  /// No description provided for @accountDownloadNotificationsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify when a download has finished.'**
+  String get accountDownloadNotificationsSubtitle;
+
   /// No description provided for @accountOfflineCacheOfLimit.
   ///
   /// In en, this message translates to:

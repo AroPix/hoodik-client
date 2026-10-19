@@ -481,6 +481,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Lädt die nächste und vorherige Datei unter 5 MB, damit das Wischen sofort reagiert.';
 
   @override
+  String get accountDownloadNotificationsTitle => 'Download-Benachrichtigungen';
+
+  @override
+  String get accountDownloadNotificationsSubtitle =>
+      'Benachrichtigen, wenn ein Download abgeschlossen ist.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used von $limit';
   }

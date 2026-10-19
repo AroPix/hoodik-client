@@ -133,6 +133,8 @@
   "accountOfflineCacheTitle": "Offline cache",
   "accountPreviewPreloadTitle": "Predmemoriši obližnje preglede",
   "accountPreviewPreloadSubtitle": "Učitava prethodnu i sljedeću datoteku manju od 5 MB kako bi prelistavanje bilo trenutačno.",
+  "accountDownloadNotificationsTitle": "Obavijesti o preuzimanju",
+  "accountDownloadNotificationsSubtitle": "Obavijesti kada je preuzimanje završeno.",
   "accountOfflineCacheOfLimit": "{used} od {limit}",
   "accountOfflineCacheUnlimited": "{used} · Neograničeno",
   "accountCacheLimitTitle": "Ograničenje predmemorije",

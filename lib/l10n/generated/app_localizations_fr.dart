@@ -481,6 +481,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Charge les fichiers précédent et suivant de moins de 5 Mo pour un balayage instantané.';
 
   @override
+  String get accountDownloadNotificationsTitle =>
+      'Notifications de téléchargement';
+
+  @override
+  String get accountDownloadNotificationsSubtitle =>
+      'Notifier lorsqu\'un téléchargement est terminé.';
+
+  @override
   String accountOfflineCacheOfLimit(String used, String limit) {
     return '$used sur $limit';
   }
