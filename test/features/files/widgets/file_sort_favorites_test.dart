@@ -11,6 +11,32 @@ FileItem _file(String id, {bool dir = false, bool favorite = false}) =>
     );
 
 void main() {
+  group('sortFiles by name', () {
+    test('orders numbers naturally', () {
+      final names = {
+        'a': '1.jpg',
+        'b': '10.jpg',
+        'c': '2.jpg',
+        'd': 'img02.jpg',
+        'e': 'IMG1.jpg',
+      };
+      final sorted = sortFiles(
+        files: names.keys.map(_file).toList(),
+        field: SortField.name,
+        order: SortOrder.asc,
+        displayName: (f) => names[f.id]!,
+      );
+
+      expect(sorted.map((f) => names[f.id]), [
+        '1.jpg',
+        '2.jpg',
+        '10.jpg',
+        'IMG1.jpg',
+        'img02.jpg',
+      ]);
+    });
+  });
+
   group('pinFavoritesFirst', () {
     test('lifts favourites above the rest, preserving within-group order', () {
       final files = [
